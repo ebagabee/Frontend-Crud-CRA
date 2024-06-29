@@ -19,9 +19,9 @@ Este é o repositório do front-end desenvolvido em React para uma aplicação d
 
 1. Clone este repositório:
    
-   ```bash
+```bash
    git clone https://github.com/seu-usuario/frontend-react-crud.git
-   ```
+```
 
 Instale as dependências:
 
