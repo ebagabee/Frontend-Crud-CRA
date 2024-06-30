@@ -1,13 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import axios from "axios";
 import { FaTrash, FaEdit } from "react-icons/fa";
-import { toast } from "react-toastify";
 
 const Table = styled.table`
     width: 100%;
     background-color: #fff;
-    paddig: 20px;
+    padding: 20px; /* Corrigido: paddig para padding */
     box-shadow: 0px 0px 5px #ccc;
     border-radius: 5px;
     max-width: 800px;
@@ -42,6 +40,11 @@ export const Td = styled.td`
 `;
 
 const Grid = ({ users }) => {
+
+    if (!users || users.length === 0) {
+        return <p>No users available</p>;
+    }
+
     return (
         <Table>
             <Thead>
@@ -55,7 +58,7 @@ const Grid = ({ users }) => {
             </Thead>
 
             <Tbody>
-                {users.map((item, i) => {
+                {users.map((item, i) => (
                     <Tr key={i}>
                         <Td width="30%">{item.nome}</Td>
                         <Td width="30%">{item.email}</Td>
@@ -67,7 +70,7 @@ const Grid = ({ users }) => {
                             <FaTrash />
                         </Td>
                     </Tr>
-                })}
+                ))}
             </Tbody>
         </Table>
     );

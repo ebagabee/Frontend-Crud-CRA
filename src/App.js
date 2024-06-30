@@ -4,7 +4,8 @@ import Form from "./components/Form.js";
 import Grid from "./components/Grid.js";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Container = styled.div`
   width: 100%;
@@ -19,12 +20,30 @@ const Container = styled.div`
 const Title = styled.h2``;
 
 function App() {
+  const [users, setUsers] = useState([]);
+  const [onEdit, setOnEdit] = useState(null);
+
+  const getUsers = async () => {
+    try {
+      const res = await axios.get("http://localhost:8800");
+      console.log("Users fetched:", res.data);
+      setUsers(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)));
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      toast.error("Erro ao buscar usuários");
+    }
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
   return (
     <>
       <Container>
         <Title>USUÁRIOS</Title>
         <Form />
-        <Grid />
+        <Grid users={users} />
       </Container>
       <ToastContainer autoClose={3000} position={toast.BOTTOM_LEFT} />
       <GlobalStyle />
